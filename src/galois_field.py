@@ -7,6 +7,8 @@ related polynomial operations.
 
 from typing import List, Dict, Optional, Union
 import csv
+import json
+import os
 from numpy import poly1d as poly
 import io
 
@@ -66,6 +68,89 @@ def filler(bin_list: List[str], bits: int) -> Optional[str]:
         bin_list.insert(0, '0')
             
     return ''.join(bin_list)
+
+
+def _load_polynomials() -> Dict:
+    """Load polynomial data from JSON file."""
+    json_path = os.path.join(os.path.dirname(__file__), 'data', 'polynomials.json')
+    with open(json_path, 'r') as f:
+        return json.load(f)
+
+
+def first_polynomials(bits: int) -> List[int]:
+    """
+    Get the first polynomial for a Galois Field GF(2^n).
+    
+    Args:
+        bits: Field size (n in GF(2^n))
+        
+    Returns:
+        List of coefficients representing the polynomial
+    """
+    polynomials = _load_polynomials()
+    str_bits = str(bits)
+    
+    if str_bits not in polynomials['first_polynomials']:
+        raise ValueError(f"No first polynomial defined for GF(2^{bits})")
+    
+    return polynomials['first_polynomials'][str_bits]
+
+
+def primitive_polynomials(bits: int) -> str:
+    """
+    Get the primitive polynomial for a given field size.
+    
+    Args:
+        bits: Field size (n in GF(2^n))
+        
+    Returns:
+        Binary string representation of the primitive polynomial
+    """
+    polynomials = _load_polynomials()
+    str_bits = str(bits)
+    
+    if str_bits not in polynomials['primitive_polynomials']:
+        raise ValueError(f"No primitive polynomial defined for GF(2^{bits})")
+    
+    return polynomials['primitive_polynomials'][str_bits]
+
+
+def primitive_polynomials(bits: int) -> str:
+    """
+    Get the primitive polynomial for a given field size.
+    
+    Args:
+        bits: Field size (n in GF(2^n))
+        
+    Returns:
+        Binary string representation of the primitive polynomial
+    """
+    polynomials = _load_polynomials()
+    str_bits = str(bits)
+    
+    if str_bits not in polynomials['primitive_polynomials']:
+        raise ValueError(f"No primitive polynomial defined for GF(2^{bits})")
+    
+    return polynomials['primitive_polynomials'][str_bits]
+
+
+def first_polynomials(bits: int) -> List[int]:
+    """
+    Get the first polynomial for a Galois Field GF(2^n).
+    
+    Args:
+        bits: Field size (n in GF(2^n))
+        
+    Returns:
+        List of coefficients representing the polynomial
+    """
+    polynomials = _load_polynomials()
+    str_bits = str(bits)
+    
+    if str_bits not in polynomials['first_polynomials']:
+        raise ValueError(f"No first polynomial defined for GF(2^{bits})")
+    
+    return polynomials['first_polynomials'][str_bits]
 
 
 def field_constructor(bits: int, file: Union[str, io.StringIO]) -> None:
