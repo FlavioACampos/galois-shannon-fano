@@ -11,6 +11,16 @@ This project implements the Shannon-Fano coding algorithm combined with Galois F
 - Visualization tools
 - Interactive Jupyter notebook demos
 
+## Requirements
+
+- Python 3.7 or higher
+- Dependencies:
+  - NumPy (≥ 1.19.0)
+  - Pandas (≥ 1.0.0)
+  - Matplotlib (≥ 3.3.0)
+  - NetworkX (≥ 2.5)
+  - Jupyter (≥ 1.0.0)
+
 ## Installation
 
 ```bash
@@ -19,18 +29,18 @@ pip install -e .
 
 ## Usage
 
-The package provides both a command-line interface and a Python API. See the Jupyter notebook `demo.ipynb` for interactive examples.
+The package provides both a command-line interface and a Python API. See the Jupyter notebook `examples/demo.ipynb` for interactive examples.
 
 Basic usage:
 
 ```python
-from shannon_fano import shannon_fano
-from galois_field import field_constructor
-from binary_utils import string_to_binary, binary_errors
+from src.shannon_fano import string_frequencies, shannon_fano
+from src.galois_field import field_constructor
+from src.binary_utils import string_to_binary, binary_errors
 
 # Encode a string
 text = "Hello, World!"
-freqs, chars = get_frequencies(text)
+freqs, chars, _ = string_frequencies(text)
 codes = shannon_fano(freqs, chars)
 
 # Convert to binary
@@ -40,7 +50,24 @@ binary = string_to_binary(text)
 corrupted = binary_errors(binary)
 
 # Create Galois Field
-field = field_constructor(4)  # Creates GF(2⁴)
+output = StringIO()
+field = field_constructor(4, output)  # Creates GF(2⁴)
+```
+
+## Interactive Demo
+
+The project includes a comprehensive Jupyter notebook (`examples/demo.ipynb`) that demonstrates:
+
+1. Text encoding using Shannon-Fano coding
+2. Visualization of encoding trees
+3. Galois Field construction and properties
+4. Error detection and correction examples
+5. Performance analysis
+
+To run the demo:
+
+```bash
+jupyter notebook examples/demo.ipynb
 ```
 
 ## Theory
@@ -59,19 +86,27 @@ A Galois Field GF(2ⁿ) is a finite field with 2ⁿ elements. These fields are e
 galois-shannon-fano/
 ├── src/
 │   ├── __init__.py
-│   ├── shannon_fano.py
-│   ├── galois_field.py
-│   ├── binary_utils.py
-│   └── polynomials.py
-├── tests/
-├── demo.ipynb
-├── setup.py
-└── README.md
+│   ├── shannon_fano.py  # Shannon-Fano coding implementation
+│   ├── galois_field.py  # Galois Field operations
+│   ├── binary_utils.py  # Binary conversion utilities
+│   ├── core.py         # Common utilities
+│   └── data/
+│       └── polynomials.json  # Pre-computed polynomials
+├── examples/
+│   └── demo.ipynb      # Interactive demonstrations
+├── tests/              # Unit tests
+├── setup.py           # Package configuration
+└── README.md          # This file
 ```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. When contributing:
+
+1. Add tests for any new features
+2. Update documentation as needed
+3. Follow existing code style
+4. Ensure all tests pass
 
 ## License
 
