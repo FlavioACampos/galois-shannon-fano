@@ -34,6 +34,7 @@ The package provides both a command-line interface and a Python API. See the Jup
 Basic usage:
 
 ```python
+from io import StringIO
 from src.shannon_fano import string_frequencies, shannon_fano
 from src.galois_field import field_constructor
 from src.binary_utils import string_to_binary, binary_errors
@@ -51,7 +52,12 @@ corrupted = binary_errors(binary)
 
 # Create Galois Field
 output = StringIO()
-field = field_constructor(4, output)  # Creates GF(2⁴)
+field_constructor(4, output)  # Creates GF(2⁴)
+
+# Access the field data
+output.seek(0)  # Reset buffer position
+field_data = output.read()  # Get the CSV content
+print(field_data)  # Or save to file/process the data
 ```
 
 ## Interactive Demo
