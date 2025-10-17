@@ -105,15 +105,6 @@ galois-shannon-fano/
 └── README.md          # This file
 ```
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. When contributing:
-
-1. Add tests for any new features
-2. Update documentation as needed
-3. Follow existing code style
-4. Ensure all tests pass
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
