@@ -11,6 +11,29 @@ import string
 from collections import Counter
 
 
+def string_frequencies(text: str) -> Tuple[List[Fraction], List[str], Dict[str, int]]:
+    """
+    Calculate character frequencies in a string.
+    
+    Args:
+        text: Input string to analyze
+        
+    Returns:
+        Tuple containing:
+        - List of character frequencies as Fractions
+        - List of characters
+        - Dictionary mapping characters to their counts
+    """
+    char_counts = Counter(text)
+    text_length = len(text)
+    
+    # Get unique characters and their probabilities
+    chars = list(char_counts.keys())
+    freqs = [Fraction(count, text_length) for count in char_counts.values()]
+    
+    return freqs, chars, dict(char_counts)
+
+
 def arr_namer(arr: List[Union[float, Fraction]], 
              names: List[str] = None) -> Generator[List[Union[float, str]], None, None]:
     """
